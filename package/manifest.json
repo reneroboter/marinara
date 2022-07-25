@@ -12,7 +12,10 @@
     "alarms",
     "contextMenus",
     "storage",
-    "notifications"
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>"
   ],
   "browser_action": {
     "default_title": "Marinara",

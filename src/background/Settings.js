@@ -20,7 +20,7 @@ function clone(obj) {
 class SettingsSchema
 {
   get version() {
-    return 7;
+    return 8;
   }
 
   get default() {
@@ -203,6 +203,22 @@ class SettingsSchema
     };
 
     return v7;
+  }
+
+  from7To8(v7) {
+    let v8 = clone(v7);
+    v8.version = 8;
+
+    v8.blockList = {
+      domains: [
+        "facebook.com",
+        "reddit.com",
+        "instagram.com",
+        "reddit.com",
+      ]
+    };
+
+    return v8;
   }
 }
 

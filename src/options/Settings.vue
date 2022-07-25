@@ -163,6 +163,14 @@
         </div>
       </fieldset>
     </div>
+    <div class="section">
+      <h2>Block List</h2>
+      <p class="field">
+        <label>
+          <textarea v-model="settings.blockListDomains" placeholder="Add domains for blocking list" rows="10"></textarea>
+        </label>
+      </p>
+    </div>
     <div class="section autostart">
       <h2>{{ M.autostart_title }}</h2>
       <p>{{ M.autostart_description }}</p>
@@ -186,6 +194,9 @@
 <style lang="scss">
 @import '../fontello.css';
 
+textarea {
+  width:100%;
+}
 input[type="number"] {
   padding: 0;
 }
@@ -356,7 +367,15 @@ export default {
       let bpm = this.focusTimerBpm;
       return this.focusTimerSound
           && ((bpm == null) || (bpm > 0 && bpm <= 1000));
-    }
+    },
+    blockListDomains: {
+      get() {
+        return this.settings.blockList.domains.join(',');
+      },
+      set(value) {
+        this.settings.blockList.domains = value.split(',');
+      }
+    },
   },
   watch: {
     settings: {

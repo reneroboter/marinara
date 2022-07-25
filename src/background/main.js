@@ -8,6 +8,7 @@ import { HistoryService, SoundsService, SettingsService, PomodoroService, Option
 import { BadgeObserver, TimerSoundObserver, ExpirationSoundObserver, NotificationObserver, HistoryObserver, CountdownObserver, MenuObserver } from './Observers';
 import { ServiceBroker } from '../Service';
 import * as Alarms from './Alarms';
+import { Blocker } from './Blocker';
 
 async function run() {
   chrome.runtime.onUpdateAvailable.addListener(() => {
@@ -50,6 +51,11 @@ async function run() {
   ServiceBroker.register(new SettingsService(settingsManager));
   ServiceBroker.register(new PomodoroService(timer));
   ServiceBroker.register(new OptionsService());
+
+  let blocker = new Blocker(timer, settings);
+  blocker.apply();
+  settingsManager.on('change', () => blocker.apply());
+
 }
 
 run();
